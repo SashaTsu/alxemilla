@@ -3,6 +3,12 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches: [main]
+    paths:
+      - 'public/**'
+      - 'firebase.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-hosting.yml'
 
 concurrency:
   group: hosting-${{ github.ref }}
