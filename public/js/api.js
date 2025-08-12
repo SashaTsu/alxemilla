@@ -1,10 +1,10 @@
 // public/js/api.js
-import { auth } from "./firebase.js";
-const LOCAL_API = "http://localhost:5001/knitting-shop-7526c/us-central1";
+import { auth } from './firebase.js';
+const LOCAL_API = 'http://localhost:5001/knitting-shop-7526c/us-central1';
 export const API =
-  window.location.hostname === "localhost"
+  window.location.hostname === 'localhost'
     ? LOCAL_API
-    : "https://europe-west1-knitting-shop-7526c.cloudfunctions.net";
+    : 'https://europe-west1-knitting-shop-7526c.cloudfunctions.net';
 
 export async function fetchProducts(category = null) {
   const res = await fetch(`${API}/getProducts`);
@@ -21,8 +21,8 @@ export async function fetchProduct(id) {
 
 export async function submitOrder(data) {
   const res = await fetch(`${API}/createOrder`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
   if (!res.ok) throw new Error(await res.text());
@@ -30,12 +30,12 @@ export async function submitOrder(data) {
 }
 
 export async function addOrUpdateProduct(product) {
-  if (!auth.currentUser) throw new Error("Не авторизован");
+  if (!auth.currentUser) throw new Error('Не авторизован');
   const token = await auth.currentUser.getIdToken();
   const res = await fetch(`${API}/addOrUpdateProduct`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(product),

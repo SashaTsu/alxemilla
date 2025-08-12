@@ -1,16 +1,16 @@
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
 }
 // public/js/main.js
-import { auth, onAuthStateChanged } from "./firebase.js";
-import { t, changeLang } from "./locale.js";
+import { auth, onAuthStateChanged } from './firebase.js';
+import { t, changeLang } from './locale.js';
 import {
   renderSidebar,
   renderProductList,
   showProduct,
   renderOrderForm,
   renderAbout,
-} from "./views.min.js";
+} from './views.min.js';
 
 function scrollToTop() {
   window.scrollTo(0, 0);
@@ -33,16 +33,16 @@ window.setLanguage = (lang) => {
     return;
   }
   switch (state.name) {
-    case "list":
+    case 'list':
       renderProductList(state.category, false);
       break;
-    case "product":
+    case 'product':
       showProduct(state.id);
       break;
-    case "order":
+    case 'order':
       renderOrderForm(state.id, state.size, state.color, state.preorder);
       break;
-    case "about":
+    case 'about':
       renderAbout();
       break;
     default:
@@ -52,22 +52,22 @@ window.setLanguage = (lang) => {
 };
 
 function setupBurger() {
-  const burger = document.getElementById("burger");
-  const sidebar = document.getElementById("sidebar");
+  const burger = document.getElementById('burger');
+  const sidebar = document.getElementById('sidebar');
   if (!burger || !sidebar) return;
-  burger.addEventListener("click", (e) => {
+  burger.addEventListener('click', (e) => {
     e.stopPropagation();
-    sidebar.classList.toggle("show");
+    sidebar.classList.toggle('show');
   });
-  document.addEventListener("click", (e) => {
+  document.addEventListener('click', (e) => {
     if (!sidebar.contains(e.target) && !burger.contains(e.target)) {
-      sidebar.classList.remove("show");
+      sidebar.classList.remove('show');
     }
   });
   sidebar
-    .querySelectorAll("a")
+    .querySelectorAll('a')
     .forEach((link) =>
-      link.addEventListener("click", () => sidebar.classList.remove("show")),
+      link.addEventListener('click', () => sidebar.classList.remove('show')),
     );
 }
 
@@ -82,9 +82,9 @@ function init() {
     const params = new URLSearchParams(window.location.search);
 
     // Админка
-    if (path === "/admin") {
-      const prodId = params.get("id");
-      import("./admin.js").then(() => {
+    if (path === '/admin') {
+      const prodId = params.get('id');
+      import('./admin.js').then(() => {
         if (user) {
           window.renderAdminForm(prodId);
         } else {
@@ -95,30 +95,25 @@ function init() {
     }
 
     // Просмотр товара
-    if (path.startsWith("/product/")) {
-      showProduct(path.split("/product/")[1]);
+    if (path.startsWith('/product/')) {
+      showProduct(path.split('/product/')[1]);
       return;
     }
 
     // Оформление заказа
-    if (path.startsWith("/order/")) {
+    if (path.startsWith('/order/')) {
       const state = window.history.state || {};
-      renderOrderForm(
-        path.split("/order/")[1],
-        state.size,
-        state.color,
-        state.preorder,
-      );
+      renderOrderForm(path.split('/order/')[1], state.size, state.color, state.preorder);
       return;
     }
 
     // О нас
-    if (path === "/about") {
+    if (path === '/about') {
       renderAbout();
       return;
     }
     // Доставка
-    if (path === "/delivery") {
+    if (path === '/delivery') {
       window.renderDelivery();
       return;
     }
@@ -127,24 +122,24 @@ function init() {
     renderProductList(null, false);
   });
 
-  window.addEventListener("popstate", (e) => {
+  window.addEventListener('popstate', (e) => {
     renderSidebar();
     const state = e.state;
     if (!state) return renderProductList(null, false);
     switch (state.name) {
-      case "list":
+      case 'list':
         renderProductList(state.category, false);
         break;
-      case "product":
+      case 'product':
         showProduct(state.id);
         break;
-      case "order":
+      case 'order':
         renderOrderForm(state.id, state.size, state.color, state.preorder);
         break;
-      case "about":
+      case 'about':
         renderAbout();
         break;
-      case "delivery":
+      case 'delivery':
         window.renderDelivery();
         break;
       default:
