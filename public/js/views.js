@@ -91,7 +91,7 @@ export function renderSidebar() {
         <button data-lang="sr" onclick="setLanguage('sr')">SR</button>
       </div>
 
-    <!-- 2. Меню скроллиться отдельно -->
+    <!-- 2. Меню скроллится отдельно -->
     <div class="sidebar-menu">
       <ul>
   <li><a href="/" onclick="renderProductList();return false;">${t('menu.all').toUpperCase()}</a></li>

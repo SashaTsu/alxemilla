@@ -19,7 +19,10 @@
     "build": "npm-run-all -s format minify",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy:hosting": "npm run build && firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:all": "npm run build && firebase deploy"
   },
   "dependencies": {
     "@google-cloud/storage": "^7.16.0",
