@@ -1,20 +1,33 @@
 {
   "devDependencies": {
+    "clean-css-cli": "^5.6.3",
     "csso-cli": "^4.0.2",
+    "esbuild": "^0.25.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.6.2",
     "purgecss": "^7.0.2",
     "sharp": "^0.34.1",
     "terser": "^5.40.0"
   },
   "scripts": {
-    "to-next-gen": "node scripts/convert-to-next-gen.js",
-    "minify:js": "terser public/js/main.js --compress --mangle --output public/js/main.min.js && terser public/js/views.js --compress --mangle --output public/js/views.min.js",
-    "minify:css": "csso public/style.css --output public/style.min.css",
-    "minify": "npm run minify:js && npm run minify:css"
+    "minify:css": "cleancss public/style.css -o public/style.min.css --source-map",
+    "minify:js:main": "esbuild public/js/main.js --minify --outfile=public/js/main.min.js --legal-comments=none",
+    "minify:js:views": "esbuild public/js/views.js --minify --outfile=public/js/views.min.js --legal-comments=none",
+    "minify": "npm-run-all -s minify:css minify:js:*",
+    "build": "npm-run-all -s format minify",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@google-cloud/storage": "^7.16.0",
     "firebase-admin": "^13.4.0",
     "image-size": "^2.0.2",
     "nodemailer": "^7.0.5"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": "prettier --write"
   }
 }

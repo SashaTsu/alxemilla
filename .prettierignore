@@ -1,0 +1,6 @@
+node_modules/
+functions/node_modules/
+public/js/*.min.js
+public/style.min.css
+publicdist/
+.firebase/
