@@ -1,0 +1,47 @@
+name: Deploy Firebase Functions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "functions/**"
+      - "firebase.json"
+      - ".github/workflows/deploy-functions.yml"
+
+concurrency:
+  group: functions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-functions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Устанавливаем зависимости только для функций
+      - name: Install functions deps
+        working-directory: functions
+        run: npm ci
+
+      - name: Install Firebase CLI
+        run: npm i -g firebase-tools
+
+      # (опционально) Быстрая проверка сборки/линта, если появятся
+      # - name: Lint/Tests
+      #   working-directory: functions
+      #   run: npm test
+
+      - name: Deploy Functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          firebase use knitting-shop-7526c --token "$FIREBASE_TOKEN"
+          firebase deploy --only functions --token "$FIREBASE_TOKEN" --non-interactive
