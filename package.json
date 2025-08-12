@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "csso-cli": "^4.0.2",
+    "purgecss": "^7.0.2",
+    "sharp": "^0.34.1",
+    "terser": "^5.40.0"
+  },
+  "scripts": {
+    "to-next-gen": "node scripts/convert-to-next-gen.js",
+    "minify:js": "terser public/js/main.js --compress --mangle --output public/js/main.min.js && terser public/js/views.js --compress --mangle --output public/js/views.min.js",
+    "minify:css": "csso public/style.css --output public/style.min.css",
+    "minify": "npm run minify:js && npm run minify:css"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.16.0",
+    "firebase-admin": "^13.4.0",
+    "image-size": "^2.0.2",
+    "nodemailer": "^7.0.5"
+  }
+}

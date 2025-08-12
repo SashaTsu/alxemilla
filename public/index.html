@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://alxemilla.com/" />
+    <meta property="og:title" content="alxemilla" />
+    <meta property="og:description" content="alxemilla" />
+    <meta
+      property="og:image"
+      content="https://alxemilla.com/assets/images/logo.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <title>alxemilla</title>
+    <link rel="icon" href="/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/style.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Variable:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Фолбэк для некоторых мессенджеров -->
+    <link rel="image_src" href="https://alxemilla.com/assets/images/logo.png" />
+  </head>
+  <body>
+    <!-- Бургер-кнопка -->
+    <button id="burger" class="burger-button">☰</button>
+
+    <div class="sidebar" id="sidebar"></div>
+    <div id="app"></div>
+
+    <!-- Firebase и SPA-скрипты -->
+    <script type="module" src="/js/firebase.js"></script>
+    <script type="module" src="/js/main.min.js"></script>
+
+    <!-- Подключение капчи с onload -->
+    <script
+      src="https://www.google.com/recaptcha/api.js?render=explicit"
+      async
+      defer
+    ></script>
+  </body>
+</html>
